@@ -40,7 +40,7 @@
 
     <p>Some <i>italic text</i> that is <i>not</i> inside an unordered list...</p>
     <ul>
-        <li>And some <i>italic</i> text inside a list</li>
+        <li id="eventID">And some <i>italic</i> text inside a list</li>
     </ul>
 
 
@@ -63,13 +63,50 @@
         }
 
         //#3
-        var unorderedLists = document.get;//TODO:use the querySelector method***
-
-        for (var i = 0; i < unorderedLists.length; i++) {
-            if (unorderedLists[i].style.fontStyle == 'i') {
-                unorderedLists[i].style.color = "red";
+        var lists = document.getElementsByTagName("ul");
+        for (var i = 0; i < lists.length; ++i) {
+            var items = lists[i].getElementsByTagName("i");
+            for (var j = 0; j < items.length; ++j) {
+                items[j].style.color = 'red';
             }
         }
+
+        //#4   element.classList.contains(class);
+        var spans = document.getElementsByTagName("span");
+        var copyString = "";
+        for (var i = 0; i < spans.length; i++) {
+            if (spans[i].classList.contains("copyme")) {
+
+                copyString += spans[i].innerHTML.toString();
+
+            }
+        };
+
+        //call function below, passing in the copystring from above
+        var copyDivString = reverseString(copyString);
+
+        function reverseString(str) {
+            
+            var splitString = str.split("");//function that splits the string characters into an array 
+            var reverseArray = splitString.reverse();//array function which reverses the order 
+            var reveresedString = reverseArray.join("");//put the array back into a string
+            return reveresedString; 
+        }
+
+        //#5
+        var copyDiv = document.getElementById("copyhere");
+        copyDiv.innerHTML = copyDivString;
+
+        //#6
+        //changes font green on mouse over event
+        document.getElementById("eventID").addEventListener("mouseover", function () {
+            this.style.color = 'green';
+        });
+        //changes font back to black when mouse leave event happens
+        document.getElementById("eventID").addEventListener("mouseleave", function () {
+            this.style.color = 'black';
+        });
+
         
 
     </script>
